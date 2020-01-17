@@ -47,8 +47,6 @@ function checkForMatch(){
 		createNewRow();
 	} else {
 		alert("Sorry, try again. Your score is still " + score + ".");	
-		document.querySelectorAll('.flipped').setAttribute('src', "images/back.png");
-		}
 	//clear cardsInPlay back to empty array
 	cardsInPlay = [];
 }
