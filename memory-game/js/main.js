@@ -25,7 +25,7 @@ let cards = [
 //cards that count towards score, reset after every winning round
 let cardsInPlay = [];
 
-//cards that have been clicked, this doesn't reset until resetCards() is called
+//cards that have been clicked
 let flippedCards = [];
 
 //set score to 0
@@ -46,8 +46,8 @@ function checkForMatch(){
 		//add another row of shuffled cards with every win
 		createNewRow();
 	} else {
-		alert("Sorry, try again. Your score is still " + score + ".");
-		// document.getElementById("game-board")
+		alert("Sorry, try again. Your score is still " + score + ".");	
+		document.querySelectorAll('.flipped').setAttribute('src', "images/back.png");
 		}
 	//clear cardsInPlay back to empty array
 	cardsInPlay = [];
@@ -57,9 +57,10 @@ function checkForMatch(){
 let flipCard = function () {
 	let cardID = this.getAttribute('data-id');
 	flippedCards.push(cards[cardID]);
-	// console.log(flippedCards.length);
+	console.log(flippedCards.length);
 	cardsInPlay.push(cards[cardID].rank);
 	this.setAttribute('src', cards[cardID].cardImage);
+	this.setAttribute('class', 'flipped');
 	if (cardsInPlay.length === 2) {
 		checkForMatch();
 	}
@@ -82,6 +83,7 @@ function createNewRow() {
     	let cardElement = document.createElement('img');
     	cardElement.setAttribute('src', "images/back.png");
     	cardElement.setAttribute('data-id', i);
+    	cardElement.setAttribute('class', 'recent');
     	cardElement.addEventListener('click', flipCard);
     	document.getElementById('game-board').appendChild(cardElement);
     }
@@ -96,33 +98,11 @@ function hideInstructions() {
   }
 }
 
-// function toggleColors() {
-// 	let x = document.body.style.backgroundColor;
-// 	let y = document.body.style.color;
-// 	if (x = "white";) {
-// 		x = "black";
-// 		y = "white";
-// 	} else {
-// 		"document.body.style.backgroundColor = 'black';
-// 	}
-// }
-
-
-//remove cards from flippedCards, reset board
-function resetCards() {
-// let resetCards = function (){
-	// for (var i = 0; i < flippedCards.length; i++){
-	while (flippedCards.length > 0) {
-	flippedCards.pop();
-	}
-	// createBoard();
-}
 
 /**
  * Randomize array element order in-place.
  * Using Durstenfeld shuffle algorithm.
  */
-
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
